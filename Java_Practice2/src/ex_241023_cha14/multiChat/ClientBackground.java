@@ -25,10 +25,13 @@ public class ClientBackground {
 	// 클라이언트 접속이 완료되면
 	public void connect() {
 		try {
-			socket = new Socket("10.100.104.27", 7777);
+			// 상대방 서버의 아이피 입력.
+			socket = new Socket("10.100.201.87", 7777);
 			System.out.println("서버에 연결됨");
 
+			// 클라이언트 -> 서버에게 전달하는 도구
 			out = new DataOutputStream(socket.getOutputStream());
+			// 클라이언트 <- 서버에게 전달하는 도구
 			in = new DataInputStream(socket.getInputStream());
 
 			// 접속하자마자 닉네임 전송하면, 서버가 닉네임으로 인식
@@ -36,6 +39,7 @@ public class ClientBackground {
 			System.out.println("클라이언트 : 닉네임 전송완료 ");
 
 			while (in != null) {
+				// 서버로부터 전달 받은 메세지를 읽어서, 화면에 출력하기. 
 				msg = in.readUTF();
 				gui.appendMsg(msg);
 			}
